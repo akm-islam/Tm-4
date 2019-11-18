@@ -33,5 +33,4 @@ function marchant_search(e){
 }
 function show_cat(e){
     alert(e.target.value)
-
 }

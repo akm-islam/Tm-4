@@ -112,8 +112,8 @@ function handleclick(e){
 // -----------------------------------------------------------------------user registration
 	else if(e.value=='Register as User'){
 	var Uaddress=document.getElementById("Uaddress").value;
-	var uemail=document.getElementById("uemail").value;
-	var upassword=document.getElementById("upassword").value;
+	var uemail=document.getElementById("uremail").value;
+	var upassword=document.getElementById("urpassword").value;
 	//console.log(Uaddress)
 	event.preventDefault()
 	console.log(Uaddress,uemail,upassword)
@@ -136,8 +136,8 @@ function handleclick(e){
 // -----------------------------------------------------------------------client registration
 	else if(e.value=='Register as Marchant'){
 	var caddress=document.getElementById("cAddress").value;
-	var cemail=document.getElementById("cemail").value;
-	var cpassword=document.getElementById("cpassword").value;
+	var cemail=document.getElementById("cremail").value;
+	var cpassword=document.getElementById("crpassword").value;
 	var ccategory=document.getElementById("category").value;
 	var cstore=document.getElementById("cstore").value;
 	event.preventDefault()
@@ -159,7 +159,7 @@ function handleclick(e){
 		xmlhttp.open("GET", "../01_php_scripts/RabbitMQClientSample.php?type=cregistration"+"&cemail="+cemail+"&cpassword="+cpassword+"&caddress="+caddress+"&ccategory="+ccategory+"&cstore="+cstore, true);
         xmlhttp.send();
 	}
-// -----------------------------------------------------------------------client login
+//-----------------------------------------------------------------------client login
 	if(e.value=='cLogin'){
 	var cemail=document.getElementById("cemail").value;
 	var cpassword=document.getElementById("cpassword").value;
@@ -271,10 +271,10 @@ function showHint(str) {
 		<form class="login100-form validate-form" action="../01_php_scripts/RabbitMQClientSample.php">
 		<p>Address: <input id="Uaddress" type="text" name="address" class="search_addr form-control" size="45"></p>
 				<label for="email">Email address:</label>
-				<input id="uemail" type="text" name="email" class="form-control" id="email">
+				<input id="uremail" type="text" name="email" class="form-control" id="email">
 				<div class="form-group">
-				<label id="upassword" for="pwd">Password:</label>
-				<input type="text" name="password" class="form-control" id="pwd">
+				<label for="pwd">Password:</label>
+				<input id="urpassword" type="text" name="password" class="form-control" id="pwd">
 		</div>
 		<input type="button" onclick="handleclick(this)" name="type" value="Register as User" class="btn btn-default"></input>
 		</form>	
@@ -329,18 +329,18 @@ function showHint(str) {
 <div class="member">
 <form class="login100-form validate-form" action="../01_php_scripts/RabbitMQClientSample.php">
 <p>Address: <input id="cAddress" type="text" name="address" class="search_addr form-control" size="45"></p>
-		<label for="email">Email address:</label>
-		<input id="cemail" type="text" name="email" class="form-control" id="email">
+		<label for="cemail">Email address:</label>
+		<input id="cremail" type="text" name="email" class="form-control" id="email">
 		<div class="form-group">
 		<label for="pwd">Password:</label>
-		<input id="cpassword" type="text" name="password" class="form-control" id="pwd">
+		<input id="crpassword" type="text" name="password" class="form-control" id="pwd">
 		</div>
 		<div class="form-group">
-			<label for="email">Category</label>
+			<label for="cat">Category</label>
 			<input id="category" type="text" name="category" class="form-control" id="email">
 			</div>
 			<div class="form-group">
-			<label for="pwd">Store Name</label>
+			<label for="store">Store Name</label>
 			<input id="cstore" type="text" name="storename" class="form-control">
 		</div>
 <input type="button" onclick="handleclick(this)" name="type" value="Register as Marchant" class="btn btn-default"></input>
