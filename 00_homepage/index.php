@@ -1,3 +1,8 @@
+<?php
+session_start();
+$_SESSION["authenticated"] = False;
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -72,21 +77,21 @@ function login(e){
 			xmlhttp.open("GET", "suggest.php?q="+str, true);
 			xmlhttp.send();
 		}
-	function openCity(evt, cityName) {
-  var i, tabcontent, tablinks;
-  tabcontent = document.getElementsByClassName("tabcontent");
-  for (i = 0; i < tabcontent.length; i++) {
-    tabcontent[i].style.display = "none";
-  }
-  tablinks = document.getElementsByClassName("tablinks");
-  for (i = 0; i < tablinks.length; i++) {
-    tablinks[i].className = tablinks[i].className.replace(" active", "");
-  }
-  document.getElementById(cityName).style.display = "block";
-  evt.currentTarget.className += " active";
+function openCity(evt, cityName) {
+var i, tabcontent, tablinks;
+tabcontent = document.getElementsByClassName("tabcontent");
+for (i = 0; i < tabcontent.length; i++) {
+tabcontent[i].style.display = "none";
+}
+tablinks = document.getElementsByClassName("tablinks");
+for (i = 0; i < tablinks.length; i++) {
+tablinks[i].className = tablinks[i].className.replace(" active", "");
+}
+document.getElementById(cityName).style.display = "block";
+evt.currentTarget.className += " active";
 }
 function handleclick(e){
-// -----------------------------------------------------------------------user login
+// ----------------------------------------------------------------------- user login --------------------------
 	if(e.value=='Ulogin'){
 	var uemail=document.getElementById("uemail").value;
 	var upassword=document.getElementById("upassword").value;
@@ -97,7 +102,8 @@ function handleclick(e){
             if (this.readyState == 4 && this.status == 200) {
 				//console.log(this.responseText)
 				if(this.response==1){
-				window.location.href = "userloggedin.html";
+				<?php $_SESSION["authenticated"] = True; ?>
+				window.location.href = "smartq/login.php?username="+uemail;
 				}
 				else{
 					alert("Login failed! Try again");
@@ -109,7 +115,7 @@ function handleclick(e){
 		xmlhttp.open("GET", "../01_php_scripts/RabbitMQClientSample.php?type=Ulogin"+"&uemail="+uemail+"&upassword="+upassword, true);
         xmlhttp.send();
 	}
-// -----------------------------------------------------------------------user registration
+// -----------------------------------------------------------------------user registration ---------------------------
 	else if(e.value=='Register as User'){
 	var Uaddress=document.getElementById("Uaddress").value;
 	var uemail=document.getElementById("uremail").value;
@@ -122,8 +128,8 @@ function handleclick(e){
             if (this.readyState == 4 && this.status == 200) {
 				console.log(this.responseText)
 				if(this.response==1){
-				window.location.href = "index.html";
-					alert("success! Redirecting to homepage....")
+				window.location.href = "index.php";
+				alert("success!....")
 				}
 				else{
 					alert("failed! Try again");
@@ -147,7 +153,7 @@ function handleclick(e){
             if (this.readyState == 4 && this.status == 200) {
 				console.log(this.responseText)
 				if(this.response==1){
-				window.location.href = "index.html";
+				window.location.href = "index.php";
 				alert("success! Redirecting to homepage....")
 				}
 				else{
@@ -159,7 +165,7 @@ function handleclick(e){
 		xmlhttp.open("GET", "../01_php_scripts/RabbitMQClientSample.php?type=cregistration"+"&cemail="+cemail+"&cpassword="+cpassword+"&caddress="+caddress+"&ccategory="+ccategory+"&cstore="+cstore, true);
         xmlhttp.send();
 	}
-//-----------------------------------------------------------------------client login
+// -----------------------------------------------------------------------client login
 	if(e.value=='cLogin'){
 	var cemail=document.getElementById("cemail").value;
 	var cpassword=document.getElementById("cpassword").value;
@@ -170,7 +176,8 @@ function handleclick(e){
             if (this.readyState == 4 && this.status == 200) {
 				console.log(this.responseText)
 				if(this.response==1){
-				window.location.href = "clientloggedin.html";
+				<?php $_SESSION["authenticated"] = True; ?>
+				window.location.href = "smartq/Dash/dashboard.php?username="+cemail;
 				}
 				else{
 					alert("failed! Try again");
@@ -270,10 +277,10 @@ function showHint(str) {
   <div class="member">
 		<form class="login100-form validate-form" action="../01_php_scripts/RabbitMQClientSample.php">
 		<p>Address: <input id="Uaddress" type="text" name="address" class="search_addr form-control" size="45"></p>
-				<label for="email">Email address:</label>
+				<label for="ermail">Email address:</label>
 				<input id="uremail" type="text" name="email" class="form-control" id="email">
 				<div class="form-group">
-				<label for="pwd">Password:</label>
+				<label  for="urpassword">Password:</label>
 				<input id="urpassword" type="text" name="password" class="form-control" id="pwd">
 		</div>
 		<input type="button" onclick="handleclick(this)" name="type" value="Register as User" class="btn btn-default"></input>
@@ -283,7 +290,7 @@ function showHint(str) {
 </div>
 </div>
 </div>
-<!----------- Merchant login starts here       -->
+<!----------- client login starts here       -->
 <div id="client_login" class="tabcontent">
 	<div class="container-login100 member">
 		<div class="container-login100">
@@ -329,18 +336,18 @@ function showHint(str) {
 <div class="member">
 <form class="login100-form validate-form" action="../01_php_scripts/RabbitMQClientSample.php">
 <p>Address: <input id="cAddress" type="text" name="address" class="search_addr form-control" size="45"></p>
-		<label for="cemail">Email address:</label>
+		<label for="cremail">Email address:</label>
 		<input id="cremail" type="text" name="email" class="form-control" id="email">
 		<div class="form-group">
-		<label for="pwd">Password:</label>
+		<label for="crpassword">Password:</label>
 		<input id="crpassword" type="text" name="password" class="form-control" id="pwd">
 		</div>
 		<div class="form-group">
-			<label for="cat">Category</label>
+			<label for="email">Category</label>
 			<input id="category" type="text" name="category" class="form-control" id="email">
 			</div>
 			<div class="form-group">
-			<label for="store">Store Name</label>
+			<label for="pwd">Store Name</label>
 			<input id="cstore" type="text" name="storename" class="form-control">
 		</div>
 <input type="button" onclick="handleclick(this)" name="type" value="Register as Marchant" class="btn btn-default"></input>
